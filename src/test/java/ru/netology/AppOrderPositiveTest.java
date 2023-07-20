@@ -1,6 +1,5 @@
 package ru.netology;
 
-import dev.failsafe.internal.util.Assert;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
@@ -13,7 +12,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class appOrderPositiveTest {
+public class AppOrderPositiveTest {
 
     private WebDriver driver;
 
@@ -40,13 +39,12 @@ public class appOrderPositiveTest {
 
     @Test
     public void test() {
-        List<WebElement> elements = driver.findElements(By.className("input__control"));
-        elements.get(0).sendKeys("Широкова Карина Алексеевна");
-        elements.get(1).sendKeys("+79009009090");
+        driver.findElement(By.cssSelector("[data-test-id='name'] input")).sendKeys("Петров-Иванов Иван");
+        driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+79009009090");
         driver.findElement(By.className("checkbox__box")).click();
         driver.findElement(By.className("button")).click();
         var actualText = driver.findElement(By.cssSelector("[data-test-id=order-success]")).getText().trim();
-        Assertions.assertEquals("Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.", actualText);
+        assertEquals("Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.", actualText);
 
 
     }
